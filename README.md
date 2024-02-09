@@ -27,3 +27,7 @@ To run locally on your machine, follow these steps:
    ```
    npm test
    ```
+4. Execute code:
+    ```
+    npm start
+    ```
