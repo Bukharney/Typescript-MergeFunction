@@ -5,23 +5,48 @@ export function merge(
 ): number[] {
   let i = 0;
   let j = 0;
-  let k = collection3.length - 1;
+  let result: number[] = [];
 
+  // Merge collection1 and collection2
   while (i < collection1.length && j < collection2.length) {
+    // If collection1[i] < collection2[j], push collection1[i] to result and increment i
     if (collection1[i] < collection2[j]) {
-      collection3[k--] = collection1[i++];
+      result.push(collection1[i]);
+      i++;
+
+      // If collection1[i] >= collection2[j], push collection2[j] to result and increment j
     } else {
-      collection3[k--] = collection2[j++];
+      result.push(collection2[j]);
+      j++;
     }
   }
 
+  // Push the remaining elements of collection1 and collection2 to result
   while (i < collection1.length) {
-    collection3[k--] = collection1[i++];
+    result.push(collection1[i]);
+    i++;
   }
 
   while (j < collection2.length) {
-    collection3[k--] = collection2[j++];
+    result.push(collection2[j]);
+    j++;
   }
 
-  return collection3;
+  // Merge result and collection3
+  i = 0;
+  let k = collection3.length - 1;
+
+  // Insert collection3[k] into result
+  while (k >= 0) {
+    // If result[i] < collection3[k], increment i
+    if (result[i] < collection3[k]) {
+      i++;
+      // If result[i] >= collection3[k], insert collection3[k] into result and decrement k
+    } else {
+      result.splice(i, 0, collection3[k]);
+      k--;
+    }
+  }
+
+  return result;
 }
